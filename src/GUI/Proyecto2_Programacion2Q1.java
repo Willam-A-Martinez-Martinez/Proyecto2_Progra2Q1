@@ -1,4 +1,4 @@
-package GUI;
+ package GUI;
 
 public class Proyecto2_Programacion2Q1 {
 

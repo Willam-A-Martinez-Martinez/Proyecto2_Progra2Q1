@@ -95,7 +95,7 @@ public class ManejoUser {
             }
         }
         
-        return user;
+        return null;
     }
     
     public boolean eliminarUsuario(String nombreC, String contraseña){

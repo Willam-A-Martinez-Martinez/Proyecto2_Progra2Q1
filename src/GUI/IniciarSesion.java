@@ -38,7 +38,7 @@ public class IniciarSesion extends Grafico{
     public IniciarSesion(PgInicial pgInicial){
         this.pgInicial =pgInicial;
         //FRAME
-        confFrame(frame, "Segmented & Corp", 1000, 700);
+        confFrame(frame, "Segmented & Corp", 1000, 700, "Pantalla");
 
         frame.add(tituloSuperior);
         frame.add(nombreTxtF);

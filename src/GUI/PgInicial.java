@@ -10,6 +10,13 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,17 +41,37 @@ public class PgInicial extends Grafico{
     ManejoUser mUser;
     ManejoAvatar mAvatar;
     
-    
+    private File archM = new File("src/Musica/gigachad_8bit_song.wav");
+    public AudioInputStream audioSM;
+    public Clip clipM;
     
     public PgInicial(){
-        
+        try {
+            
+            if (!archM.exists()) {
+                System.err.println("El archivo de audio no se encontró: " + archM.getAbsolutePath());
+                return;
+            }
+            audioSM = AudioSystem.getAudioInputStream(archM);
+
+            // Inicializar y abrir el clip
+            clipM = AudioSystem.getClip();
+            
+            clipM.open(audioSM);
+            clipM.start();
+            clipM.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (IOException | LineUnavailableException  e) {
+            Logger.getLogger(Grafico.class.getName()).log(Level.SEVERE, null, e);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(PgInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         mAvatar= new ManejoAvatar();
         mUser = new ManejoUser();
         
         
         //FRAME
-        confFrame(frame, "Segmented & Corp", 1000, 700);
+        confFrame(frame, "Segmented & Corp", 1000, 700, "Pantalla");
 
         frame.add(iniciarSesion);
         frame.add(registrarse);

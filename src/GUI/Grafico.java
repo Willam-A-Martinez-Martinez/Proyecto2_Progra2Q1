@@ -10,6 +10,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,7 +44,8 @@ public class Grafico {
         }
     }
     
-    public void confFrame(JFrame frame, String title,int width,int heigth){
+    public void confFrame(JFrame frame, String title,int width,int heigth, String tipoMusic){
+        
         frame.setIconImage(logoVentana.getImage());
         frame.setTitle(title);
         frame.setSize(width, heigth);
@@ -45,6 +53,7 @@ public class Grafico {
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
     }
     
     public void fondo(JLabel a, int widthExtra, int heightExtra, ImageIcon icon, JFrame frame){
@@ -94,7 +103,7 @@ public class Grafico {
             @Override
             public void mouseMoved(MouseEvent e) {
                 a.setForeground(new Color(250, 250, 250, opaque));
-                a.setBounds(x, y, width+25, heigth);
+                a.setBounds(x, y, (width+27), heigth);
                 a.setIcon(imgS);
             }
         });
@@ -103,7 +112,7 @@ public class Grafico {
             @Override
             public void mouseExited(MouseEvent e) {
                 a.setForeground(new Color(r, g, b, opaque));
-                a.setBounds(x, y, width+25, heigth);
+                a.setBounds(x, y, width, heigth);
                 a.setIcon(null);
             }
         });

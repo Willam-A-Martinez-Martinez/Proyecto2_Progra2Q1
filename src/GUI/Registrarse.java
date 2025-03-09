@@ -48,7 +48,7 @@ public class Registrarse extends Grafico{
         Image scaleI = scaleImage(fotoPerfilImg.getImage(), 128, 128);
         fotoPerfilImg = new ImageIcon(scaleI);
         //FRAME
-        confFrame(frame, "Segmented & Corp", 1000, 700);
+        confFrame(frame, "Segmented & Corp", 1000, 700, "Pantalla");
         
         frame.add(cambiarPerfil);
         frame.add(fotoPerfil);
