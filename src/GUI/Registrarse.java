@@ -121,22 +121,23 @@ public class Registrarse extends Grafico{
             String contra = new String(contraseñaTxtF.getPassword()).trim();
             
 
-            System.out.println("DEBUG: Username=[" + nombreUser + "], Full Name=[" + nombreC + "], Password=[" + contra + "]");
+            System.out.println("DEBUG: Username=[" + nombreUser + "], Full Name=[" + nombreC + "], Password=[" + contra + "]"+", Avatar ="+rutaAvatar);
 
             if(!nombreUser.equals("") || !nombreC.equals("") || !contra.equals("")){
                 if(pgInicial.mUser.agregarUsuario(nombreUser, nombreC, contra, rutaAvatar)){
-
-
+                    
+                    System.out.println("Ruta de avatar despues de acceder a registrarse: "+rutaAvatar);
+                    
                    PgPrincipal pgP = new PgPrincipal(pgInicial);
                    pgP.frame.setVisible(true);
                    pgInicial.logUser = pgInicial.mUser.cargaUsuario(nombreC);
+                   System.out.println("Ruta que aparece con el user guardado: "+pgInicial.logUser.getAvatar());
 
                    if(pgInicial.logUser==null){
                         System.out.println("Log user es null");
                    }else{
                        System.out.println("Contra de user: "+pgInicial.logUser.getContraseña());
                        System.out.println("Nombre completo de usar: "+pgInicial.logUser.getNombreCompleto());
-                       System.out.println("Ultima sesion: "+pgInicial.logUser.getUltimaSesion().getWeekYear());
                    }
                    frame.dispose();
                 }

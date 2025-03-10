@@ -17,6 +17,7 @@ public class Datos implements Serializable {
         this.nombreUser = NombreUser;
         this.nombreCompleto = NombreCompleto;
         this.contraseña = contraseña;
+        this.avatar=avatar;
         this.fechaRegistro = Calendar.getInstance();
         this.ultimaSesion = Calendar.getInstance();
         this.tiempoJugado = Duration.ZERO;
@@ -57,12 +58,22 @@ public class Datos implements Serializable {
         return tiempoJugado.toMinutes();
     }
 
+    public String getFechaRegistro(){
+        int año=fechaRegistro.get(Calendar.YEAR), mes=fechaRegistro.get(Calendar.MONTH),dia=fechaRegistro.get(Calendar.DAY_OF_MONTH);
+        return dia+"/"+mes+"/"+año;
+    }
+    
+    public String getUltimaSesion() {
+        int año=ultimaSesion.get(Calendar.YEAR), mes=ultimaSesion.get(Calendar.MONTH),dia=ultimaSesion.get(Calendar.DAY_OF_MONTH);
+        return dia+"/"+mes+"/"+año;
+    }
+    
     public String getNombreCompleto() { return nombreCompleto; }
     public String getContraseña() { return contraseña; }
     public String getNombreUser() { return nombreUser; }
     public String getAvatar() { return avatar;}
-    public Calendar getFechaRegistro() { return fechaRegistro; }
-    public Calendar getUltimaSesion() { return ultimaSesion; }
     public Duration getTiempoJugado() { return tiempoJugado; }
+    
+    public void setUltimaSesion(Calendar nuevaSesion) {this.ultimaSesion = nuevaSesion;}
 }
 

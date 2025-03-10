@@ -36,39 +36,21 @@ public class PgInicial extends Grafico{
     //Info de usuarios
     public Datos logUser;
     
-    public String nombre, oponente;
-    
     ManejoUser mUser;
     ManejoAvatar mAvatar;
+    Musica music;
     
     private File archM = new File("src/Musica/gigachad_8bit_song.wav");
-    public AudioInputStream audioSM;
-    public Clip clipM;
     
     public PgInicial(){
-        try {
-            
-            if (!archM.exists()) {
-                System.err.println("El archivo de audio no se encontró: " + archM.getAbsolutePath());
-                return;
-            }
-            audioSM = AudioSystem.getAudioInputStream(archM);
-
-            // Inicializar y abrir el clip
-            clipM = AudioSystem.getClip();
-            
-            clipM.open(audioSM);
-            clipM.start();
-            clipM.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (IOException | LineUnavailableException  e) {
-            Logger.getLogger(Grafico.class.getName()).log(Level.SEVERE, null, e);
-        } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(PgInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         mAvatar= new ManejoAvatar();
         mUser = new ManejoUser();
+        music = new Musica();
         
+        music.setMusic(archM);
+        music.play();
+        music.loop();
         
         //FRAME
         confFrame(frame, "Segmented & Corp", 1000, 700, "Pantalla");

@@ -5,6 +5,7 @@
 package GUI;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -87,6 +88,13 @@ public class IniciarSesion extends Grafico{
             if(pgInicial.mUser.existeUsuario(nombreC, contra)!=null){
                 JOptionPane.showMessageDialog(null, "Se ha iniciado sesión!");
                 pgInicial.logUser = pgInicial.mUser.existeUsuario(nombreC, contra);
+                
+                File modif = new File("Usuarios/"+nombreC+"/datos.dat");
+                
+                if(modif.exists()){
+                    pgInicial.mUser.actualizaUltimaSesion(modif);
+                }
+                
                 PgPrincipal pgP = new PgPrincipal(pgInicial);
                 pgP.frame.setVisible(true);
                 frame.dispose();

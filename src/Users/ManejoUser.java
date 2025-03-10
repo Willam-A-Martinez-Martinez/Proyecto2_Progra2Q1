@@ -6,11 +6,15 @@ package Users;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -67,6 +71,7 @@ public class ManejoUser {
         
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(userF))){
             usuarios= dir.listFiles();
+            System.out.println("Que aparece dentro de el guardado de usuario el avatar: "+avatar);
             Datos user = new Datos(nombreUser, nombreC, contraseña, avatar);
             oos.writeObject(user);
             return true;
@@ -139,5 +144,25 @@ public class ManejoUser {
     
     public int contarUsuario(){
         return usuarios.length;
+    }
+    
+    public void actualizaUltimaSesion(File user){
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(user));
+            Datos userO = (Datos) ois.readObject();
+            ois.close();
+            
+            userO.setUltimaSesion(Calendar.getInstance());
+            
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(user));
+            oos.writeObject(userO);
+            oos.close();
+            
+            usuarios= (new File(DIRECTORIO_USUARIOS)).listFiles();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

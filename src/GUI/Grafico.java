@@ -10,13 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,7 +24,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class Grafico {
     ImageIcon logoVentana = new ImageIcon("src/UI_Images/CajaCafeOscuro.png");
     Font pixelMplus;
-    int r=76,g=70,b=66;
+    private int r=76,g=70,b=66;
     
     public Grafico(){
         try{
@@ -42,6 +35,12 @@ public class Grafico {
         }catch(IOException | FontFormatException e){
             
         }
+    }
+    
+    public ImageIcon scaleImage(ImageIcon icon, int width, int height) {
+        Image img = icon.getImage();
+        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImg);
     }
     
     public void confFrame(JFrame frame, String title,int width,int heigth, String tipoMusic){
