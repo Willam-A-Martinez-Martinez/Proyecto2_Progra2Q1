@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -24,6 +25,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class Grafico {
     ImageIcon logoVentana = new ImageIcon("src/UI_Images/CajaCafeOscuro.png");
     Font pixelMplus;
+    FontMetrics metrics;
     private int r=76,g=70,b=66;
     
     public Grafico(){
@@ -102,7 +104,7 @@ public class Grafico {
             @Override
             public void mouseMoved(MouseEvent e) {
                 a.setForeground(new Color(250, 250, 250, opaque));
-                a.setBounds(x, y, (width+27), heigth);
+                a.setBounds(x, y, (width+29), heigth);
                 a.setIcon(imgS);
             }
         });

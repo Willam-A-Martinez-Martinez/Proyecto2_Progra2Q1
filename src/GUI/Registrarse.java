@@ -68,38 +68,43 @@ public class Registrarse extends Grafico{
         fondo(background, 0, 0, backgroundI, frame);
         
         //Foto perfil
+        /*
+        Cambiar foto de perfil
+        Nombre Completo:
+        Registrar
         
+        */
         titulo(fotoPerfil,710, 150, 128, 128, "Dialog", 28, 250, "");
         fotoPerfil.setIcon(fotoPerfilImg);
         //cambiar perfil
-        boton(cambiarPerfil, 600, 310, 400, 42, false, false, "Dialog", 28, "Cambiar foto de perfil", 250);
+        boton(cambiarPerfil, 600, 310, 400, 42, false, false, "Dialog", 28, pgInicial.bundle.getString("cambiarFP"), 250);
         
         //TITULO
-        titulo(tituloSuperior, 590, 71, 170, 50, "Dialog", 28, 250, "Registrarse");
+        titulo(tituloSuperior, 590, 71, 170, 50, "Dialog", 28, 250, pgInicial.bundle.getString("registrarse"));
         
         //Sub titulo 1
-        titulo(nombreUserTxt, 450, 128, 170, 50, "Dialog", 28, 250, "Nombre:");
+        titulo(nombreUserTxt, 450, 128, 170, 50, "Dialog", 28, 250, pgInicial.bundle.getString("nombre"));
         
         //Textfield 1
         textfield(nombreUserTxtF, 425, 175, 170, 30, "Dialog", 20);
         
         //Sub titulo 2
-        titulo(nombreCTxt , 400, 215, 255, 50, "Dialog", 28, 250, "Nombre Completo:");
+        titulo(nombreCTxt , 400, 215, 255, 50, "Dialog", 28, 250, pgInicial.bundle.getString("nombreC"));
         
         //Textfield 2 
         textfield(nombreCTxtF, 425, 255, 170, 30, "Dialog", 20);
         
         //Sub titulo 3
-        titulo(contraseñaTxt, 425, 290, 170, 50, "Dialog", 28, 250, "Contraseña:");
+        titulo(contraseñaTxt, 425, 290, 170, 50, "Dialog", 28, 250, pgInicial.bundle.getString("contra"));
         
         //Textfield 3
         passwordfield(contraseñaTxtF, 425, 335, 170, 30, "Dialog", 20);
         
         //BOTON 1 Iniciar sesion
-        boton(volver, 370, 400, 235, 42, false, false, "Dialog", 28, "Volver", 250);
+        boton(volver, 370, 400, 235, 42, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
 
         //BOTON 2 registrarse
-        boton(registrarse, 660, 400, 235, 42, false, false, "Dialog", 28, "Registrar", 250);
+        boton(registrarse, 660, 400, 235, 42, false, false, "Dialog", 28, pgInicial.bundle.getString("registrar"), 250);
 
 
         volver.addActionListener((ActionEvent e) -> {

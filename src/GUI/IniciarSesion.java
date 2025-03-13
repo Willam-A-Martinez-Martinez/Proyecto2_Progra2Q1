@@ -6,7 +6,6 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -53,27 +52,32 @@ public class IniciarSesion extends Grafico{
         
         //BACKGROUND
         fondo(background, 0, 0, backgroundI, frame);
-
+        /*
+        
+        Nombre: 
+        Contraseña:
+        Volver
+        */
         //TITULO
-        titulo(tituloSuperior, 590, 71, 200, 50, "Dialog", 28, 250, "Iniciar sesion");
+        titulo(tituloSuperior, 590, 71, 200, 50, "Dialog", 28, 250, pgInicial.bundle.getString("iniciar_sesion"));
 
         //Sub titulo 1
-        titulo(nombreTxt, 610, 128, 170, 50, "Dialog", 28, 250, "Nombre:");
+        titulo(nombreTxt, 610, 128, 170, 50, "Dialog", 28, 250, pgInicial.bundle.getString("nombre"));
         
         //Textfield 1
         textfield(nombreTxtF, 585, 175, 170, 30, "Dialog", 20);
         
         //Sub titulo 2
-        titulo(contraseñaTxt, 590, 235, 170, 50, "Dialog", 28, 250, "Contraseña:");
+        titulo(contraseñaTxt, 590, 235, 170, 50, "Dialog", 28, 250, pgInicial.bundle.getString("contra"));
         
         //Textfield 2
         passwordfield(contraseñaTxtF, 585, 275, 170, 30, "Dialog", 20);
         
         //BOTON 1 Iniciar sesion
-        boton(volver, 420, 350, 235, 42, false, false, "Dialog", 28, "Volver", 250);
+        boton(volver, 420, 350, 235, 42, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
 
         //BOTON 2 iniciar_Sesion
-        boton(iniciar_Sesion, 660, 350, 235, 42, false, false, "Dialog", 28, "Iniciar sesion", 250);
+        boton(iniciar_Sesion, 660, 350, 235, 42, false, false, "Dialog", 28, pgInicial.bundle.getString("iniciar_sesion"), 250);
 
 
         volver.addActionListener((ActionEvent e) -> {
@@ -86,7 +90,7 @@ public class IniciarSesion extends Grafico{
             String contra = new String(contraseñaTxtF.getPassword()).trim();
             
             if(pgInicial.mUser.existeUsuario(nombreC, contra)!=null){
-                JOptionPane.showMessageDialog(null, "Se ha iniciado sesión!");
+                JOptionPane.showMessageDialog(null, (pgInicial.locale.toString().equals("es"))?"Se ha iniciado sesión!":"Successfully logged in!");
                 pgInicial.logUser = pgInicial.mUser.existeUsuario(nombreC, contra);
                 
                 File modif = new File("Usuarios/"+nombreC+"/datos.dat");

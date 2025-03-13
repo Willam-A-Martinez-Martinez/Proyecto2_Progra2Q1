@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,32 +22,41 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class PgPrincipal extends Grafico{
-    JFrame frame= new JFrame("Menú Principal - Sokoban");
+    JFrame frame= new JFrame();
     private JLabel fondo = new JLabel();
-    private JLabel titulo= new JLabel("Menú Principal", SwingConstants.CENTER);
-    private JButton btnIniciarPartida= new JButton("️Jugar");
-    private JButton btnPerfilUsuario= new JButton("Perfil de usuario");
-    private JButton btnEstadisticas= new JButton("Estadisticas");
-    private JButton btnRanking= new JButton("Ranking");
-    private JButton btnPreferencias= new JButton("Configuracion");
-    private JButton btnSalir= new JButton("Salir");
+    private JLabel titulo= new JLabel();
+    private JButton btnIniciarPartida= new JButton();
+    private JButton btnPerfilUsuario= new JButton();
+    private JButton btnEstadisticas= new JButton();
+    private JButton btnRanking= new JButton();
+    private JButton btnPreferencias= new JButton();
+    private JButton btnSalir= new JButton();
 
     ImageIcon backgroundI= new ImageIcon("src/Assets/FondoRegistro-Inicio Sesion.gif");
     
     public PgInicial pgInicial;
     
     public PgPrincipal(PgInicial pgInicial) {
+        metrics = frame.getFontMetrics(pixelMplus);
         this.pgInicial= pgInicial;
         confFrame(frame, "Sokoban", 1000, 700, "Pantalla");
-        
+        /*
+        Jugar
+        Perfil de usuario
+        Configuracion
+        Estadisticas
+        Ranking
+        Log out
+        */
         fondo(fondo            , 0, 0, backgroundI, frame);
-       titulo(titulo           , 400, 50 , 200, 50, "Dialog", 28, 250, "Menu principal");
-        boton(btnIniciarPartida, 380, 110, 115, 50, false, false, "Dialog", 28, "Jugar", 250);
-        boton(btnPerfilUsuario , 380, 170, 275, 50, false, false, "Dialog", 28, "Perfil de usuario", 250);
-        boton(btnPreferencias  , 380, 230, 218, 50, false, false, "Dialog", 28, "Configuracion", 250);
-        boton(btnEstadisticas  , 380, 290, 205, 50, false, false, "Dialog", 28, "Estadisticas", 250);
-        boton(btnRanking       , 380, 350, 135, 50, false, false, "Dialog", 28, "Ranking", 250);
-        boton(btnSalir         , 380, 410, 18*8, 50, false, false, "Dialog", 28, "Log out", 250);
+        //
+        titulo(titulo           , 400, 50 , (metrics.stringWidth((pgInicial.bundle.getString("menuPrincipal")))), 50, "Dialog", 28, 250, pgInicial.bundle.getString("menuPrincipal"));
+        boton(btnIniciarPartida, 390, 110, (metrics.stringWidth(pgInicial.bundle.getString("jugar")))+2, 50, false, false, "Dialog", 28, pgInicial.bundle.getString("jugar"),250);
+        boton(btnPerfilUsuario , 380, 170, (metrics.stringWidth(pgInicial.bundle.getString("perfilUsuario")))+34  , 50, false, false, "Dialog", 28, pgInicial.bundle.getString("perfilUsuario"), 250);
+        boton(btnPreferencias  , 380, 230, (metrics.stringWidth(pgInicial.bundle.getString("configuracion")))+35  , 50, false, false, "Dialog", 28, pgInicial.bundle.getString("configuracion"), 250);
+        boton(btnEstadisticas  , 380, 290, (metrics.stringWidth(pgInicial.bundle.getString("estadisticas")))+35   , 50, false, false, "Dialog", 28, pgInicial.bundle.getString("estadisticas"), 250);
+        boton(btnRanking       , 380, 350, (metrics.stringWidth(pgInicial.bundle.getString("ranking")))+35        , 50, false, false, "Dialog", 28, pgInicial.bundle.getString("ranking"), 250);
+        boton(btnSalir         , 380, 410, (metrics.stringWidth(pgInicial.bundle.getString("salirSesion")))+35    , 50, false, false, "Dialog", 28,pgInicial.bundle.getString("salirSesion"), 250);
         btnIniciarPartida.setAlignmentX(SwingConstants.LEFT);
         btnPerfilUsuario .setAlignmentX(SwingConstants.LEFT);
         btnPreferencias  .setAlignmentX(SwingConstants.LEFT);
@@ -92,6 +104,11 @@ public class PgPrincipal extends Grafico{
         });
         
         btnSalir.addActionListener((ActionEvent e) -> {
+            if(pgInicial.music.mute==true){
+                pgInicial.muteCB.setSelected(true);
+            }else{
+                pgInicial.muteCB.setSelected(false);
+            }
             pgInicial.logUser = null;
             pgInicial.frame.setVisible(true);
             frame.dispose();
@@ -103,27 +120,32 @@ public class PgPrincipal extends Grafico{
     private void perfilUsuario() {
         JLabel tituloPerfil = new JLabel();
         JLabel lblPerfil       = new JLabel();
-        JLabel lblNombre       = new JLabel("Nombre");
-        JLabel lblApodo        = new JLabel("Apodo");
-        JLabel lblFechaIngreso = new JLabel("Fecha de ingreso");
-        JLabel lblUltimaSesion = new JLabel("Última sesión iniciada");
+        JLabel lblNombre       = new JLabel();
+        JLabel lblApodo        = new JLabel();
+        JLabel lblFechaIngreso = new JLabel();
+        JLabel lblUltimaSesion = new JLabel();
         JButton salir = new JButton();
         
         ImageIcon perfil = new ImageIcon(pgInicial.logUser.getAvatar());
         
         System.out.println("Ruta de imagen: "+pgInicial.logUser.getAvatar());
         
+        /*
+        Nombre:
+        Apodo: 
+        Fecha de ingreso:
+        Ultima sesion: 
+        */
         
-        
-        titulo(tituloPerfil   , 400, 50 , 250, 50, "Dialog", 28, 250, "Perfil de usuario");
+        titulo(tituloPerfil   , 400, 50 , 250, 50, "Dialog", 28, 250, pgInicial.bundle.getString("perfilUsuario"));
         titulo(lblPerfil      , 400, 110 , 100, 100, "Dialog", 28, 250, "");
-        titulo(lblNombre      , 400, 215 , 18*(8+pgInicial.logUser.getNombreCompleto().length()) , 50, "Dialog", 28, 250, "Nombre: "+pgInicial.logUser.getNombreCompleto());
-        titulo(lblApodo       , 400, 275 , 18*(7+pgInicial.logUser.getNombreUser().length()) , 50, "Dialog", 28, 250, "Apodo: "+pgInicial.logUser.getNombreUser());
-        titulo(lblFechaIngreso, 400, 335 , 18*(18+pgInicial.logUser.getFechaRegistro().length()), 50, "Dialog", 28, 250, "Fecha de ingreso: "+pgInicial.logUser.getFechaRegistro());
-        titulo(lblUltimaSesion, 400, 395 , 18*(15+pgInicial.logUser.getUltimaSesion().length()), 50, "Dialog", 28, 250, "Ultima sesion: "+pgInicial.logUser.getUltimaSesion());
+        titulo(lblNombre      , 400, 215 , 18*(8+pgInicial.logUser.getNombreCompleto().length()) , 50, "Dialog", 28, 250, pgInicial.bundle.getString("nombre")+pgInicial.logUser.getNombreCompleto());
+        titulo(lblApodo       , 400, 275 , 18*(7+pgInicial.logUser.getNombreUser().length()) , 50, "Dialog", 28, 250, pgInicial.bundle.getString("apodo")+pgInicial.logUser.getNombreUser());
+        titulo(lblFechaIngreso, 400, 335 , 18*(18+pgInicial.logUser.getFechaRegistro().length()), 50, "Dialog", 28, 250, pgInicial.bundle.getString("fechaIngreso")+pgInicial.logUser.getFechaRegistro());
+        titulo(lblUltimaSesion, 400, 395 , 18*(15+pgInicial.logUser.getUltimaSesion().length()), 50, "Dialog", 28, 250, pgInicial.bundle.getString("ultimaSesion")+pgInicial.logUser.getUltimaSesion());
         
         lblPerfil.setIcon(scaleImage(perfil, 100, 100));
-        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, "Volver", 250);
+        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
         
         frame.add(tituloPerfil);
         frame.add(lblPerfil);
@@ -140,6 +162,7 @@ public class PgPrincipal extends Grafico{
         frame.revalidate();
         
         salir.addActionListener((ActionEvent e) -> {
+            
             frame.add(titulo,0);
             frame.add(btnIniciarPartida,1);
             frame.add(btnPerfilUsuario,2);
@@ -163,27 +186,31 @@ public class PgPrincipal extends Grafico{
         
         configuracionTabs.setBounds(320, 50, 650, 400);
         
+        //juego
+        JPanel    juego         = new JPanel();
+        JCheckBox muteCB        = new JCheckBox();
+        JCheckBox españolCB     = new JCheckBox();
+        JCheckBox inglesCB      = new JCheckBox();
+        JLabel    volumenTitulo = new JLabel();
+        JLabel    idiomaTitulo  = new JLabel();
+        JLabel    muteL         = new JLabel();
+        JSlider   volumenM      = new JSlider(-40,6);
         
-        JPanel juego = new JPanel();
-        JCheckBox muteCB = new JCheckBox();
-        JCheckBox españolCB = new JCheckBox();
-        JCheckBox inglesCB = new JCheckBox();
-        JLabel volumenTitulo = new JLabel();
-        JLabel idiomaTitulo = new JLabel();
-        JLabel muteL = new JLabel();
-        JSlider volumenM = new JSlider(-40,6);
+        if(pgInicial.music.mute==true){
+            muteCB.setSelected(true);
+        }
         
-        titulo(volumenTitulo, 20, 20 , 18*9, 50, "Dialog", 28, 250, "Volumen: ");
-        titulo(idiomaTitulo, 20, 80 , 18*8, 50, "Dialog", 28, 250, "Idioma: ");
-        titulo(muteL, (18*8)+200, 20 , 18*10, 50, "Dialog", 28, 250, "Silenciar: ");
-        
+        titulo(volumenTitulo, 20, 20 , (metrics.stringWidth(pgInicial.bundle.getString("volumen")))+2, 50, "Dialog", 28, 250, pgInicial.bundle.getString("volumen"));
+        titulo(idiomaTitulo, 20, 80 , (metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+2, 50, "Dialog", 28, 250, pgInicial.bundle.getString("idiomaPgInicial"));
+        titulo(muteL, (18*8)+200, 20 , (metrics.stringWidth(pgInicial.bundle.getString("silenciar")))+2, 50, "Dialog", 28, 250, pgInicial.bundle.getString("silenciar"));
+        System.out.println((metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+2);
         muteCB.setBounds((18*8)+(18*10)+200, 20, 50, 50);
         muteCB.setContentAreaFilled(false);
         
-        españolCB.setBounds((18*7), 80, 50, 50);
+        españolCB.setBounds(130+((metrics.stringWidth(pgInicial.bundle.getString("volumen")))-(5*18)), 80, 50, 50);
+        inglesCB.setBounds((metrics.stringWidth(pgInicial.bundle.getString("volumen")))+110, 80, 50, 50);
         españolCB.setContentAreaFilled(false);
         
-        inglesCB.setBounds((18*7)+50, 80, 50, 50);
         inglesCB.setContentAreaFilled(false);
         
         volumenM.setBounds((18*8), 35, 200, 25);
@@ -200,23 +227,27 @@ public class PgPrincipal extends Grafico{
         juego.setLayout(null);
         juego.add(volumenM);
         
+        
+        
+        //perfil
         JPanel Perfil = new JPanel();
         Perfil.setOpaque(false);
         Perfil.setLayout(null);
         
-        configuracionTabs.addTab("Juego", juego);
-        configuracionTabs.addTab("Perfil", Perfil);
+        configuracionTabs.addTab(pgInicial.bundle.getString("juego"), juego);
+        configuracionTabs.addTab(pgInicial.bundle.getString("perfil"), Perfil);
         
         configuracionTabs.setOpaque(false);
         configuracionTabs.setBorder(null);
         configuracionTabs.setFont(pixelMplus);
 
-        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, "Volver", 250);
+        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
         frame.add(configuracionTabs);
         frame.add(salir);
         frame.add(fondo);
         frame.repaint();
         frame.revalidate();
+        
         
         volumenM.setValue(Math.round(pgInicial.music.volumen1));
         volumenM.addChangeListener((ChangeEvent e) -> {
@@ -245,13 +276,64 @@ public class PgPrincipal extends Grafico{
             frame.revalidate();
         });
         
+        españolCB.addChangeListener((ChangeEvent e) -> {
+            if(españolCB.isSelected()){
+                inglesCB.setSelected(false);
+                pgInicial.locale = new Locale("es");
+                pgInicial.bundle = ResourceBundle.getBundle("resources.mensajes", pgInicial.locale);
+
+                volumenTitulo.setText(pgInicial.bundle.getString("volumen"));
+                idiomaTitulo.setText(pgInicial.bundle.getString("idiomaPgInicial"));
+                muteL.setText(pgInicial.bundle.getString("silenciar"));
+
+                configuracionTabs.setTitleAt(0, pgInicial.bundle.getString("juego"));
+                configuracionTabs.setTitleAt(1, pgInicial.bundle.getString("perfil"));
+                salir.setText(pgInicial.bundle.getString("volver"));
+                
+                
+                españolCB.setEnabled(false);
+                inglesCB.setEnabled(true);
+                
+                idiomaTitulo.setBounds(20, 80 , (metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+2, 50);
+                españolCB.setLocation((metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+10-(3*18), 80);
+                inglesCB.setLocation((metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+28, 80);
+                juego.repaint();
+                juego.validate();
+            }
+        });
+        
+        inglesCB.addChangeListener((ChangeEvent e) -> {
+            if(inglesCB.isSelected()){
+                españolCB.setSelected(false);
+                pgInicial.locale = new Locale("en");
+                pgInicial.bundle = ResourceBundle.getBundle("resources.mensajes", pgInicial.locale);
+
+                muteL.setText(pgInicial.bundle.getString("silenciar"));
+                volumenTitulo.setText(pgInicial.bundle.getString("volumen"));
+                idiomaTitulo.setText(pgInicial.bundle.getString("idiomaPgInicial"));
+
+                configuracionTabs.setTitleAt(0, pgInicial.bundle.getString("juego"));
+                configuracionTabs.setTitleAt(1, pgInicial.bundle.getString("perfil"));
+                salir.setText(pgInicial.bundle.getString("volver"));
+
+                
+                inglesCB.setEnabled(false);
+                españolCB.setEnabled(true);
+                
+                idiomaTitulo.setBounds(20, 80 , (metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+2, 50);
+                españolCB.setLocation((metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+10-(3*18), 80);
+                inglesCB.setLocation((metrics.stringWidth(pgInicial.bundle.getString("idiomaPgInicial")))+28, 80);
+                juego.repaint();
+                juego.validate();
+            }
+        });
         
     }
 
     private void estadisticas() {
         JButton salir = new JButton();
         
-        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, "Volver", 250);
+        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
         
         frame.add(salir, 0);
         frame.add(fondo, 1);
@@ -276,7 +358,7 @@ public class PgPrincipal extends Grafico{
     private void ranking() {
         JButton salir = new JButton();
         
-        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, "Volver", 250);
+        boton(salir, 140, 180, 120, 50, false, false, "Dialog", 28, pgInicial.bundle.getString("volver"), 250);
         
         frame.add(salir, 0);
         frame.add(fondo, 1);
@@ -297,6 +379,5 @@ public class PgPrincipal extends Grafico{
             frame.revalidate();
         });
     }
-    
     
 }
