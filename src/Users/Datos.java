@@ -73,7 +73,10 @@ public class Datos implements Serializable {
     public String getNombreUser() { return nombreUser; }
     public String getAvatar() { return avatar;}
     public Duration getTiempoJugado() { return tiempoJugado; }
-    
+
+    public void setNombreUser(String nombreUser) {this.nombreUser = nombreUser;}
+    public void setContraseña(String contraseña) {this.contraseña = contraseña;}
+    public void setAvatar(String avatar) {this.avatar = avatar;}
     public void setUltimaSesion(Calendar nuevaSesion) {this.ultimaSesion = nuevaSesion;}
 }
 

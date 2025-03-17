@@ -11,7 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +74,8 @@ public class ManejoUser {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(userF))){
             usuarios= dir.listFiles();
             System.out.println("Que aparece dentro de el guardado de usuario el avatar: "+avatar);
-            Datos user = new Datos(nombreUser, nombreC, contraseña, avatar);
+            
+            Datos user = new Datos(nombreUser, nombreC, contraseña, guardarImagen(avatar, nombreC));
             oos.writeObject(user);
             return true;
         }catch(IOException e){
@@ -163,6 +166,69 @@ public class ManejoUser {
             Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean cambiarContra(File user, String contra, String apodo){
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(user));
+            Datos userO = (Datos) ois.readObject();
+            ois.close();
+            
+            if(!userO.getContraseña().equals(contra) && userO.getNombreUser().equals(apodo)){
+                userO.setContraseña(contra);
+                
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(user));
+                oos.writeObject(userO);
+                oos.close();
+
+                usuarios= (new File(DIRECTORIO_USUARIOS)).listFiles();
+                return true;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean cambiarNombre(File user, String contra, String apodo){
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(user));
+            Datos userO = (Datos) ois.readObject();
+            ois.close();
+            
+            if(userO.getContraseña().equals(contra) && !userO.getNombreUser().equals(apodo)){
+                userO.setNombreUser(apodo);
+                
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(user));
+                oos.writeObject(userO);
+                oos.close();
+
+                usuarios= (new File(DIRECTORIO_USUARIOS)).listFiles();
+                return true;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(ManejoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public String guardarImagen(String rutaOrigen, String nombreCompleto) {
+        try {
+            String perfil =(rutaOrigen.endsWith(".png")?"Perfil.png":"Perfil.jpg");
+            Files.copy(
+                Path.of(rutaOrigen), 
+                Path.of(DIRECTORIO_USUARIOS+File.separator+nombreCompleto+File.separator+perfil), 
+                StandardCopyOption.REPLACE_EXISTING
+            );
+            return perfil=DIRECTORIO_USUARIOS+File.separator+nombreCompleto+File.separator+perfil;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }

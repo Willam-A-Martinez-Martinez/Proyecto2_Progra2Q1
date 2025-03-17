@@ -115,6 +115,7 @@ public class Registrarse extends Grafico{
         cambiarPerfil.addActionListener((ActionEvent e) -> {
             rutaAvatar=pgInicial.mAvatar.seleccionarImagen();
             fotoPerfilImg= new ImageIcon(rutaAvatar);
+            
             Image scaleIH = scaleImage(fotoPerfilImg.getImage(), 128, 128);
             fotoPerfilImg = new ImageIcon(scaleIH);
             fotoPerfil.setIcon(fotoPerfilImg);

@@ -49,6 +49,12 @@ public class PropertiesFileCreator {
             properties.setProperty("idiomaP","Idioma: ");
             properties.setProperty("juego","Juego");
             properties.setProperty("perfil","Perfil");
+            properties.setProperty("cambioApodo","Cambio de apodo");
+            properties.setProperty("cambiarApodo","Cambiar apodo");
+            properties.setProperty("cambioPerfil","Cambio de foto de perfil");
+            properties.setProperty("cambioContraseña","Cambio de contraseña");
+            properties.setProperty("ingreseContra","Ingrese contraseña");
+            properties.setProperty("cambiarContra","Cambiar contraseña");
         } else if ("en".equals(lang)) {
             properties.setProperty("sokoban","Sokoban");
             properties.setProperty("registrarse", "Sign up");
@@ -76,6 +82,12 @@ public class PropertiesFileCreator {
             properties.setProperty("idiomaP","Language: ");
             properties.setProperty("juego","Game");
             properties.setProperty("perfil","Profile");
+            properties.setProperty("cambioApodo","Nickname change");
+            properties.setProperty("cambiarApodo","Change nickname");
+            properties.setProperty("cambioPerfil","Profile change");
+            properties.setProperty("cambioContraseña","Password change");
+            properties.setProperty("ingreseContra","Enter password");
+            properties.setProperty("cambiarContra","Change password");
         }
 
         try (FileOutputStream fos = new FileOutputStream(filePath)) {

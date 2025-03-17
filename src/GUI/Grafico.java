@@ -39,6 +39,8 @@ public class Grafico {
         }
     }
     
+    
+    
     public ImageIcon scaleImage(ImageIcon icon, int width, int height) {
         Image img = icon.getImage();
         Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);

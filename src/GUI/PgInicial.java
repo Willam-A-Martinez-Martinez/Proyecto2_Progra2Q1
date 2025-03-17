@@ -93,23 +93,18 @@ public class PgInicial extends Grafico{
         titulo.setAlignmentX(SwingConstants.LEFT);
         
         titulo(muteL   , 10, 50 , 18*9, 50, "Dialog", 28, 250, bundle.getString("silenciar"));
-        muteCB.setBounds((10+18*11), 50, 50, 50);
+        muteCB.setBounds((10+18*8),50, 50, 50);
         muteCB.setContentAreaFilled(false);
         
         titulo(idiomaL   , 10, 100 , 18*13, 50, "Dialog", 28, 250, bundle.getString("idiomaPgInicial"));
         esCB.setBounds(10+18*8, 100, 50, 50);
         enCB.setBounds(10+18*9+50, 100, 50, 50);
+        esCB.setEnabled(false);
         
         if(locale.toString().equals("es")){
             enCB.setSelected(false);
             esCB.setSelected(true);
             actualizarIdioma(new Locale("es"));
-            idiomaL.setBounds(10, 100 , 18*13, 50);
-            muteCB.setBounds((10+18*9), 50, 50, 50);
-            esCB.setBounds(10+18*8, 100, 50, 50);
-            enCB.setBounds(10+18*9+50, 100, 50, 50);
-            enCB.setEnabled(true);
-            esCB.setEnabled(false);
         }
         
         esCB.setContentAreaFilled(false);
@@ -134,29 +129,57 @@ public class PgInicial extends Grafico{
             if(esCB.isSelected()){
                 enCB.setSelected(false);
                 actualizarIdioma(new Locale("es"));
-                frame.repaint();
-                frame.validate();
-                idiomaL.setBounds(10, 100 , 18*13, 50);
-                muteCB.setBounds((10+18*9), 50, 50, 50);
+
+                titulo.setText(bundle.getString("sokoban"));
+                muteL.setText(bundle.getString("silenciar"));
+                idiomaL.setText(bundle.getString("idiomaPgInicial"));
+                iniciarSesion.setText(bundle.getString("iniciar_sesion"));
+                registrarse.setText(bundle.getString("registrarse"));
+                salir.setText(bundle.getString("salir"));
+                
+                // Establecer correctamente los bounds
+                idiomaL.setBounds(10, 100, 18*13, 50);
+                muteL.setBounds(10, 50, 18*9, 50);
+                muteCB.setBounds((10+18*8),50, 50, 50);
                 esCB.setBounds(10+18*8, 100, 50, 50);
                 enCB.setBounds(10+18*9+50, 100, 50, 50);
+
+                // Actualizar estado de los checkboxes
                 enCB.setEnabled(true);
                 esCB.setEnabled(false);
+
+                // Refrescar frame
+                frame.repaint();
+                frame.validate();
             }
         });
-        
+
         enCB.addActionListener((ActionEvent e) -> {
             if(enCB.isSelected()){
                 esCB.setSelected(false);
                 actualizarIdioma(new Locale("en"));
-                iniciarSesion.repaint();
-                iniciarSesion.validate();
-                idiomaL.setBounds(10, 100 , 18*18, 50);
-                muteCB.setBounds((10+18*6), 50, 50, 50);
+
+                titulo.setText(bundle.getString("sokoban"));
+                muteL.setText(bundle.getString("silenciar"));
+                idiomaL.setText(bundle.getString("idiomaPgInicial"));
+                iniciarSesion.setText(bundle.getString("iniciar_sesion"));
+                registrarse.setText(bundle.getString("registrarse"));
+                salir.setText(bundle.getString("salir"));
+                // Establecer correctamente los bounds
+                idiomaL.setBounds(10, 100, 18*14, 50);
+                muteL.setBounds(10, 50, 18*9, 50);
+                muteCB.setBounds((10+18*4), 50, 50, 50);
                 esCB.setBounds(10+18*10, 100, 50, 50);
                 enCB.setBounds(10+18*11+50, 100, 50, 50);
+
+                // Actualizar estado de los checkboxes
                 enCB.setEnabled(false);
                 esCB.setEnabled(true);
+                
+
+                // Refrescar frame (repintar todo el frame, no solo un componente)
+                frame.repaint();
+                frame.validate();
             }
         });
 
@@ -181,17 +204,11 @@ public class PgInicial extends Grafico{
         });
     }
     
-    private void actualizarIdioma(Locale nuevaLocale) {
+    public void actualizarIdioma(Locale nuevaLocale) {
         locale = nuevaLocale;
         bundle = ResourceBundle.getBundle("resources.mensajes", locale);
-
-        titulo.setText(bundle.getString("sokoban"));
-        muteL.setText(bundle.getString("silenciar"));
-        idiomaL.setText(bundle.getString("idiomaPgInicial"));
-        iniciarSesion.setText(bundle.getString("iniciar_sesion"));
-        registrarse.setText(bundle.getString("registrarse"));
-        salir.setText(bundle.getString("salir"));
-
+        
+        
         frame.repaint();
         frame.validate();
     }
